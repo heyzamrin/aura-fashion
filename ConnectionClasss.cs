@@ -37,7 +37,8 @@ namespace WebApplicationProject1
             }
             cmd = new SqlCommand(sqlquery, con);
             con.Open();
-            string d = cmd.ExecuteScalar().ToString();
+            //string d = cmd.ExecuteScalar().ToString();
+            string d = Convert.ToString(cmd.ExecuteScalar());
             con.Close();
             return d;
 

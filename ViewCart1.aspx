@@ -18,14 +18,7 @@
     <table class="w-100">
         <tr>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td class="auto-style1">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td class="auto-style1">
+            <td><span class="nav-label">
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="CartId" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" ForeColor="#BB8D3F">
                     <Columns>
                         <asp:ImageField DataImageUrlField="ProductImage" HeaderText="Product Image">
@@ -53,20 +46,53 @@
                     </Columns>
                 </asp:GridView>
             </td>
+            <td class="auto-style1">&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td class="auto-style1"><span class="nav-label">
-                <asp:Button ID="Button1" runat="server" BackColor="#BB8D3F" Text="Proceed" OnClick="Button1_Click" Width="100%" />
+            <td><span class="nav-label">
+                <asp:Button ID="Button1" runat="server" BackColor="#866528" Text="Proceed to Summary" OnClick="Button1_Click" Width="100%" />
             </td>
+            <td class="auto-style1">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><span class="nav-label">
+                <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Large" ForeColor="#866528" Text="Your Cart is Empty!" Visible="False"></asp:Label>
+            </td>
+            <td class="auto-style1">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><span class="nav-label">
+                <asp:Button ID="Button2" runat="server" BackColor="#866528" Text="Continue Shopping" OnClick="Button2_Click" Width="100%" />
+            </td>
+            <td class="auto-style1">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td class="auto-style1">
+                &nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td class="auto-style1">&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td class="auto-style2"></td>
-            <td class="auto-style3"></td>
+            <td class="auto-style3">&nbsp;</td>
             <td class="auto-style2"></td>
             <td class="auto-style2"></td>
         </tr>

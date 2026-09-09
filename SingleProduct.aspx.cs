@@ -52,10 +52,21 @@ namespace WebApplicationProject1
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            DataListItem item = (DataListItem)btn.NamingContainer;
-            DropDownList ddl = (DropDownList)item.FindControl("DropDownList1");
-            Session["qty"] = ddl.SelectedValue;
+            Session["qty"] = DropDownList1.SelectedValue;
+
+            int qty = Convert.ToInt32(Session["qty"]);
+
+            string price = "select ProductPrice from ProductTable where ProductId=" + Session["pid"];
+            string p = clsobj.Fn_Scalar(price).ToString();
+
+            decimal subtotal = Convert.ToDecimal(p) * qty;
+
+            string ins = "insert into CartTablee(UserId,ProductId,ProductQuantity,ProductSubtotal,ProductCartStatus) values (" + Session["uid"] + "," + Session["pid"] + "," + qty + "," + subtotal + ",1)";
+            clsobj.Fn_Nonquery(ins);
+
+            Response.Redirect("ViewCart1.aspx");
         }
+
+       
     }
 }

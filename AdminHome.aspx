@@ -38,7 +38,9 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td><span class="nav-label">
+                <asp:LinkButton ID="LinkButton1" runat="server" PostBackUrl="~/ViewFeedbackAdmin.aspx" Font-Bold="True" Font-Size="Small" Font-Underline="True" ForeColor="#866528">View Feedback</asp:LinkButton>
+            </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -53,16 +55,16 @@
             <td>
                 &nbsp;</td>
             <td><span class="nav-label">
-                <asp:ImageButton ID="ImageButton1" runat="server" Height="300px" Width="300px" ImageUrl="~/categoryimages/ADDC.png" OnClick="ImageButton1_Click" PostBackUrl="~/AddCategory.aspx" />
+                <asp:ImageButton ID="ImageButton1" runat="server" Height="300px" Width="300px" ImageUrl="~/categoryimages/ADD CATEGORY (2).png" OnClick="ImageButton1_Click" PostBackUrl="~/AddCategory.aspx" />
             </td>
             <td><span class="nav-label">
-                <asp:ImageButton ID="ImageButton2" runat="server" Height="300px" Width="300px" ImageUrl="~/categoryimages/EDITC.png" PostBackUrl="~/EditCategory.aspx" ForeColor="White" />
+                <asp:ImageButton ID="ImageButton2" runat="server" Height="300px" Width="300px" ImageUrl="~/categoryimages/ADD CATEGORY (1).png" PostBackUrl="~/EditCategory.aspx" ForeColor="White" />
             </td>
             <td><span class="nav-label">
-                <asp:ImageButton ID="ImageButton3" runat="server" Height="300px" Width="300px" ForeColor="White" ImageUrl="~/categoryimages/ADDP.png" PostBackUrl="~/AddProduct.aspx" />
+                <asp:ImageButton ID="ImageButton3" runat="server" Height="300px" Width="300px" ForeColor="White" ImageUrl="~/categoryimages/ADD CATEGORY (3).png" PostBackUrl="~/AddProduct.aspx" />
             </td>
             <td><span class="nav-label">
-                <asp:ImageButton ID="ImageButton4" runat="server" Height="300px" Width="300px" ForeColor="White" ImageUrl="~/categoryimages/EDITP.png" PostBackUrl="~/EditProduct.aspx" />
+                <asp:ImageButton ID="ImageButton4" runat="server" Height="300px" Width="300px" ForeColor="White" ImageUrl="~/categoryimages/ADD CATEGORY.png" PostBackUrl="~/EditProduct.aspx" />
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -86,7 +88,8 @@
             <td class="auto-style1"></td>
             <td class="auto-style1"></td>
             <td class="auto-style1"></td>
-            <td class="auto-style1"></td>
+            <td class="auto-style1">
+                &nbsp;</td>
             <td class="auto-style1"></td>
             <td class="auto-style1"></td>
             <td class="auto-style1"></td>

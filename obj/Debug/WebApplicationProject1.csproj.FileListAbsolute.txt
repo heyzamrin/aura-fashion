@@ -52,8 +52,8 @@ C:\Users\Hp\source\repos\WebApplicationProject1\bin\roslyn\VBCSCompiler.exe
 C:\Users\Hp\source\repos\WebApplicationProject1\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Hp\source\repos\WebApplicationProject1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Hp\source\repos\WebApplicationProject1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Hp\source\repos\WebApplicationProject1\obj\Debug\WebApplicationProject1.csproj.AssemblyReference.cache
 C:\Users\Hp\source\repos\WebApplicationProject1\obj\Debug\WebApplicationProject1.csproj.CoreCompileInputs.cache
 C:\Users\Hp\source\repos\WebApplicationProject1\obj\Debug\WebApplicationProject1.csproj.CopyComplete
 C:\Users\Hp\source\repos\WebApplicationProject1\obj\Debug\WebApplicationProject1.dll
 C:\Users\Hp\source\repos\WebApplicationProject1\obj\Debug\WebApplicationProject1.pdb
+C:\Users\Hp\source\repos\WebApplicationProject1\obj\Debug\WebApplicationProject1.csproj.AssemblyReference.cache
