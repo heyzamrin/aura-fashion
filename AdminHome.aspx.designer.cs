@@ -15,13 +15,13 @@ namespace WebApplicationProject1
     {
 
         /// <summary>
-        /// LinkButton1 control.
+        /// HyperLinkFeedback control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLinkFeedback;
 
         /// <summary>
         /// ImageButton1 control.
@@ -33,6 +33,15 @@ namespace WebApplicationProject1
         protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
 
         /// <summary>
+        /// HyperLink1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+
+        /// <summary>
         /// ImageButton2 control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace WebApplicationProject1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
+
+        /// <summary>
+        /// HyperLink2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
 
         /// <summary>
         /// ImageButton3 control.
@@ -51,6 +69,15 @@ namespace WebApplicationProject1
         protected global::System.Web.UI.WebControls.ImageButton ImageButton3;
 
         /// <summary>
+        /// HyperLink3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink3;
+
+        /// <summary>
         /// ImageButton4 control.
         /// </summary>
         /// <remarks>
@@ -58,5 +85,23 @@ namespace WebApplicationProject1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
+
+        /// <summary>
+        /// HyperLink4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink4;
+
+        /// <summary>
+        /// HyperLink5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink5;
     }
 }

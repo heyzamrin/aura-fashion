@@ -116,6 +116,10 @@
     <Content Include="images\logo.png" />
     <Content Include="images\logol.png" />
     <Content Include="images\logoo.png.png" />
+    <Content Include="images\old-money-banner.jpg" />
+    <Content Include="images\old-money-banner1.jpg" />
+    <Content Include="images\old-money-banner2.jpg" />
+    <Content Include="images\old-money-banner3.jpg" />
     <Content Include="images\p1.png" />
     <Content Include="images\p10.png" />
     <Content Include="images\p11.png" />
@@ -140,6 +144,7 @@
     <Content Include="PaymentSuccess.aspx" />
     <Content Include="product.html" />
     <Content Include="SingleProduct.aspx" />
+    <Content Include="UserDetails.aspx" />
     <Content Include="UserHome.aspx" />
     <Content Include="UserHOME11.aspx" />
     <Content Include="UserRegistration.aspx" />
@@ -291,6 +296,13 @@
     </Compile>
     <Compile Include="Site2.Master.designer.cs">
       <DependentUpon>Site2.Master</DependentUpon>
+    </Compile>
+    <Compile Include="UserDetails.aspx.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserDetails.aspx.designer.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserHome.aspx.cs">
       <DependentUpon>UserHome.aspx</DependentUpon>

@@ -1,37 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
+using System;
+using System.Data;
+using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
-
-
 
 namespace WebApplicationProject1
 {
     public partial class ViewCart1 : System.Web.UI.Page
     {
-
         ConnectionClass clsobj = new ConnectionClass();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["uid"] == null)
             {
-                gridbind();
+                Response.Redirect("Login.aspx");
+            }
+            else
+            {
+                if (!IsPostBack)
+                {
+                    gridbind();
+                }
             }
         }
-       
+
         public void gridbind()
         {
-            string str = "select dbo.CartTablee.CartId, dbo.ProductTable.ProductImage, dbo.ProductTable.ProductName, dbo.ProductTable.ProductPrice, dbo.CartTablee.ProductQuantity, dbo.CartTablee.ProductSubtotal from dbo.ProductTable inner join dbo.CartTablee on dbo.ProductTable.ProductId=dbo.CartTablee.ProductId where dbo.CartTablee.ProductCartStatus=1 and dbo.CartTablee.UserId=" + Session["uid"];
+            int uid = Convert.ToInt32(Session["uid"]);
+
+            string str = "select dbo.CartTablee.CartId, " +
+                "dbo.ProductTable.ProductImage, " +
+                "dbo.ProductTable.ProductName, " +
+                "dbo.ProductTable.ProductPrice, " +
+                "dbo.CartTablee.ProductQuantity, " +
+                "dbo.CartTablee.ProductSubtotal " +
+                "from dbo.ProductTable inner join dbo.CartTablee " +
+                "on dbo.ProductTable.ProductId = dbo.CartTablee.ProductId " +
+                "where dbo.CartTablee.ProductCartStatus = 1 " +
+                "and dbo.CartTablee.UserId = " + uid;
 
             DataSet ds = clsobj.Fn_Adapter_DataSet(str);
 
             GridView1.DataSource = ds;
             GridView1.DataBind();
+
+            decimal grandtotal = 0;
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                grandtotal += Convert.ToDecimal(
+                    row["ProductSubtotal"]);
+            }
+
+            string totalText = "₹" +
+                grandtotal.ToString("N2", CultureInfo.InvariantCulture);
+
+            lblSubtotal.Text = totalText;
+            lblCartTotal.Text = totalText;
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -39,6 +66,7 @@ namespace WebApplicationProject1
                 Label1.Visible = true;
                 GridView1.Visible = false;
                 Button1.Visible = false;
+                pnlOrderSummary.Visible = false;
             }
             else
             {
@@ -46,100 +74,150 @@ namespace WebApplicationProject1
                 Label1.Visible = false;
                 GridView1.Visible = true;
                 Button1.Visible = true;
+                pnlOrderSummary.Visible = true;
             }
         }
 
-        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void GridView1_RowDeleting(object sender,
+            GridViewDeleteEventArgs e)
         {
+            int uid = Convert.ToInt32(Session["uid"]);
             int i = e.RowIndex;
             int id = Convert.ToInt32(GridView1.DataKeys[i].Value);
-            string del = "delete from CartTablee where CartId=" + id + "";
+
+            string del = "delete from CartTablee where CartId = " +
+                id + " and UserId = " + uid +
+                " and ProductCartStatus = 1";
+
             clsobj.Fn_Nonquery(del);
+
             GridView1.EditIndex = -1;
             gridbind();
         }
 
-        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void GridView1_RowEditing(object sender,
+            GridViewEditEventArgs e)
         {
             GridView1.EditIndex = e.NewEditIndex;
             gridbind();
         }
 
-        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        protected void GridView1_RowCancelingEdit(object sender,
+            GridViewCancelEditEventArgs e)
         {
             GridView1.EditIndex = -1;
             gridbind();
         }
 
-        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        protected void GridView1_RowUpdating(object sender,
+            GridViewUpdateEventArgs e)
         {
+            int uid = Convert.ToInt32(Session["uid"]);
             int i = e.RowIndex;
             int id = Convert.ToInt32(GridView1.DataKeys[i].Value);
-            TextBox txtqty = (TextBox)GridView1.Rows[i].FindControl("txtqty");
-            int qty = Convert.ToInt32(txtqty.Text);
-            
 
-            string s = "SELECT dbo.ProductTable.ProductPrice FROM dbo.ProductTable INNER JOIN dbo.CartTablee ON dbo.ProductTable.ProductId = dbo.CartTablee.ProductId where CartId=" + id + "";
-            string p = clsobj.Fn_Scalar(s).ToString();
-            decimal price = Convert.ToDecimal(p);
+            TextBox txtqty = (TextBox)GridView1.Rows[i]
+                .FindControl("txtqty");
 
+            int qty;
+
+            if (int.TryParse(txtqty.Text, out qty) == false || qty <= 0)
+            {
+                return;
+            }
+
+            string s = "select ProductTable.ProductPrice " +
+                "from ProductTable inner join CartTablee " +
+                "on ProductTable.ProductId = CartTablee.ProductId " +
+                "where CartTablee.CartId = " + id +
+                " and CartTablee.UserId = " + uid +
+                " and CartTablee.ProductCartStatus = 1";
+
+            object priceObj = clsobj.Fn_Scalar(s);
+
+            if (priceObj == null || priceObj == DBNull.Value)
+            {
+                return;
+            }
+
+            decimal price = Convert.ToDecimal(priceObj);
             decimal subtotal = price * qty;
 
-            string update = "Update CartTablee set ProductQuantity=" + qty + " , ProductSubTotal=" + subtotal + " where CartId=" + id + "";
+            string subtotalText = subtotal.ToString(
+                CultureInfo.InvariantCulture);
+
+            string update = "update CartTablee set " +
+                "ProductQuantity = " + qty +
+                ", ProductSubtotal = " + subtotalText +
+                " where CartId = " + id +
+                " and UserId = " + uid +
+                " and ProductCartStatus = 1";
+
             clsobj.Fn_Nonquery(update);
+
             GridView1.EditIndex = -1;
             gridbind();
         }
-
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string sel = "select ProductId from CartTablee where UserId=" + Session["uid"] + " and ProductCartStatus=1";
+            int uid = Convert.ToInt32(Session["uid"]);
 
-            SqlDataReader dr1 = clsobj.Fn_Reader(sel);
+            string sel = "select CartId, ProductId, ProductQuantity, " +
+                "ProductSubtotal from CartTablee " +
+                "where UserId = " + uid +
+                " and ProductCartStatus = 1";
 
-            List<int> pidlist = new List<int>();
+            DataSet ds = clsobj.Fn_Adapter_DataSet(sel);
 
-            while (dr1.Read())
+            if (ds.Tables[0].Rows.Count == 0)
             {
-                pidlist.Add(Convert.ToInt32(dr1["ProductId"]));
+                gridbind();
+                return;
             }
 
-            dr1.Close();
+            decimal grandtotal = 0;
 
-            string sum = "select SUM(ProductSubtotal) from CartTablee where UserId=" + Session["uid"] + " and ProductCartStatus=1";
-
-            object obj = clsobj.Fn_Scalar(sum);
-
-            decimal grandtotal = Convert.ToDecimal(obj);
-
-            foreach (int p in pidlist)
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-                string s = "select ProductQuantity, ProductSubtotal from CartTablee where UserId=" + Session["uid"] + " and ProductId=" + p + " and ProductCartStatus=1";
+                grandtotal += Convert.ToDecimal(
+                    row["ProductSubtotal"]);
+            }
 
-                SqlDataReader dr2 = clsobj.Fn_Reader(s);
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                int cartId = Convert.ToInt32(row["CartId"]);
+                int productId = Convert.ToInt32(row["ProductId"]);
+                int qty = Convert.ToInt32(row["ProductQuantity"]);
+                decimal subtotal = Convert.ToDecimal(
+                    row["ProductSubtotal"]);
 
-                int q = 0;
-                decimal st = 0;
+                string subtotalText = subtotal.ToString(
+                    CultureInfo.InvariantCulture);
 
-                if (dr2.Read())
-                {
-                    q = Convert.ToInt32(dr2["ProductQuantity"]);
-                    st = Convert.ToDecimal(dr2["ProductSubtotal"]);
-                }
+                string ins = "insert into OrderTablee values (" +
+                    uid + "," +
+                    productId + "," +
+                    qty + "," +
+                    subtotalText +
+                    ", GETDATE(), 'Confirmed')";
 
-                dr2.Close();
-
-                string ins = "insert into OrderTablee values (" + Session["uid"] + "," + p + "," + q + "," + st + ",GETDATE(),'Confirmed')";
                 clsobj.Fn_Nonquery(ins);
 
-                string update = "update CartTablee set ProductCartStatus=0 where UserId=" + Session["uid"] + " and ProductId=" + p + " and ProductCartStatus=1";
+                string update = "update CartTablee " +
+                    "set ProductCartStatus = 0 " +
+                    "where CartId = " + cartId +
+                    " and UserId = " + uid +
+                    " and ProductCartStatus = 1";
+
                 clsobj.Fn_Nonquery(update);
             }
 
-           
+            string totalText = grandtotal.ToString(
+                CultureInfo.InvariantCulture);
 
-            string ins2 = "insert into PaymentTable values(" + Session["uid"] + "," + grandtotal + ",GETDATE())";
+            string ins2 = "insert into PaymentTable values (" +
+                uid + "," + totalText + ", GETDATE())";
 
             clsobj.Fn_Nonquery(ins2);
 

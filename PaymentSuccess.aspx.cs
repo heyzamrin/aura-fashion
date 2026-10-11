@@ -30,7 +30,11 @@ namespace WebApplicationProject1
 
                     ids = ids.TrimEnd(',');
 
-                    string q = "select distinct ProductTable.ProductId, ProductTable.ProductName, ProductTable.ProductImage, OrderTablee.OrderStatus from OrderTablee inner join ProductTable on OrderTablee.ProductId=ProductTable.ProductId where OrderTablee.UserID=" + Session["uid"] + " and OrderTablee.OrderStatus='Paid' and OrderTablee.ProductId in (" + ids + ")"; SqlDataReader dr = clsobj.Fn_Reader(q);
+                    string q = "select distinct ProductTable.ProductId, ProductTable.ProductName," +
+                        " ProductTable.ProductImage, OrderTablee.OrderStatus from OrderTablee inner join" +
+                        " ProductTable on OrderTablee.ProductId=ProductTable.ProductId where OrderTablee.UserID=" 
+                        + Session["uid"] + " and OrderTablee.OrderStatus='Paid' and OrderTablee.ProductId in (" + ids + ")"; 
+                    SqlDataReader dr = clsobj.Fn_Reader(q);
 
                     GridView1.DataSource = dr;
                     GridView1.DataBind();

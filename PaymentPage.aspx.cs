@@ -23,7 +23,8 @@ namespace WebApplicationProject1
                     return;
                 }
 
-                string gtstr = "select GrandTotal from PaymentTable where UserId='" + Session["uid"] + "' and PaymentId=(select max(PaymentId) from PaymentTable where UserId='" + Session["uid"] + "')";
+                string gtstr = "select GrandTotal from PaymentTable where UserId='" + Session["uid"] +
+                    "' and PaymentId=(select max(PaymentId) from PaymentTable where UserId='" + Session["uid"] + "')";
                 string gt = clsobj.Fn_Scalar(gtstr);
 
                 if (gt != null)
@@ -46,7 +47,8 @@ namespace WebApplicationProject1
             }
             string accno = TextBox5.Text.Trim();
 
-            string str = "select AccountNumber from AccountTableWCF where AccountNumber='" + accno + "' and UserID='" + Session["uid"] + "'";
+            string str = "select AccountNumber from AccountTableWCF where AccountNumber='" + accno +
+                "' and UserID='" + Session["uid"] + "'";
             string s = Convert.ToString(clsobj.Fn_Scalar(str));
 
             if (s == "")
@@ -56,7 +58,8 @@ namespace WebApplicationProject1
             }
             else
             {
-                string gtstr = "select GrandTotal from PaymentTable where UserId='" + Session["uid"] + "' and PaymentId=(select max(PaymentId) from PaymentTable where UserId='" + Session["uid"] + "')";
+                string gtstr = "select GrandTotal from PaymentTable where UserId='" + Session["uid"] +
+                    "' and PaymentId=(select max(PaymentId) from PaymentTable where UserId='" + Session["uid"] + "')";
                 string gt = clsobj.Fn_Scalar(gtstr);
                 if (gt == null)
                 {
@@ -75,7 +78,8 @@ namespace WebApplicationProject1
                 {
                     List<int> productList = new List<int>();
 
-                    string q = "select ProductID from OrderTablee where OrderStatus='Confirmed' and UserID='" + Session["uid"] + "'";
+                    string q = "select ProductID from OrderTablee where OrderStatus='Confirmed' and UserID='" 
+                        + Session["uid"] + "'";
 
                     SqlDataReader dr = clsobj.Fn_Reader(q);
 
@@ -88,11 +92,13 @@ namespace WebApplicationProject1
 
                     foreach (int PID in productList)
                     {
-                        string updateOrder = "update OrderTablee set OrderStatus='Paid' where ProductID='" + PID + "' and OrderStatus='Confirmed' and UserID='" + Session["uid"] + "'";
+                        string updateOrder = "update OrderTablee set OrderStatus='Paid' where ProductID='" 
+                            + PID + "' and OrderStatus='Confirmed' and UserID='" + Session["uid"] + "'";
 
                         clsobj.Fn_Nonquery(updateOrder);
 
-                        string qtystr = "select Quantity from OrderTablee where ProductID='" + PID + "' and UserID='" + Session["uid"] + "' and OrderStatus='Paid'";
+                        string qtystr = "select Quantity from OrderTablee where ProductID='" + PID + "' and UserID='" 
+                            + Session["uid"] + "' and OrderStatus='Paid'";
 
                         int quantity = Convert.ToInt32(clsobj.Fn_Scalar(qtystr));
 
@@ -102,7 +108,8 @@ namespace WebApplicationProject1
 
                         int newstock = oldstock - quantity;
 
-                        string updatestock = "update ProductTable set ProductStock='" + newstock + "' where ProductID='" + PID + "'";
+                        string updatestock = "update ProductTable set ProductStock='" + newstock + 
+                            "' where ProductID='" + PID + "'";
 
                         clsobj.Fn_Nonquery(updatestock);
                     }
